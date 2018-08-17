@@ -75,7 +75,7 @@
                 android:background="@drawable/login_button_background"
                 android:text="@string/create_account_button_text"
                 android:textColor="@color/colorWhite"
-                android:foreground="?attr/selectableItemBackground"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"/>
 
         </LinearLayout>

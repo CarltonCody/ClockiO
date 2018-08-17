@@ -1,14 +1,18 @@
 package www.codycarlton.login.signup;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.transition.Slide;
 import android.util.Patterns;
+import android.view.Gravity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -63,6 +67,8 @@ public class Login_Signup_Activity extends AppCompatActivity
     public void goToCreateAccount() {
 
         signupFragment = new SignupFragment();
+        signupFragment.setEnterTransition(new Slide(Gravity.BOTTOM));
+        signupFragment.setExitTransition(new Slide(Gravity.BOTTOM));
         fragmentManager.beginTransaction()
                 .add(R.id.login_signup_container, signupFragment, "Test2").addToBackStack(null).commit();
     }
@@ -80,6 +86,7 @@ public class Login_Signup_Activity extends AppCompatActivity
                                 gotoDashboard();
                             }else{
                                 //TODO: Determine what to do if login was not successful
+                                showErrorDialog("Oops, something went wrong! Make sure your email and password are correct.");
 
                             }
                         }
@@ -103,6 +110,7 @@ public class Login_Signup_Activity extends AppCompatActivity
 
                             }else{
                                 //TODO: Determine what to do if create account was not successful
+                                showErrorDialog("Oops! Something went wrong creating your account. We'll look into.");
                             }
                         }
                     });
@@ -158,5 +166,26 @@ public class Login_Signup_Activity extends AppCompatActivity
         Intent dashBoardIntent = new Intent(this, DashboardActivity.class);
         startActivity(dashBoardIntent);
     }//gotoDashboard
+
+    private void showErrorDialog(String errorMsg){
+
+        final AlertDialog errorDialog;
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(errorMsg);
+
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        errorDialog = builder.create();
+        errorDialog.show();
+
+    }//errorDialog(String errorMsg)
 
 }//End of line
