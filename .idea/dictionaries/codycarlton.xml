@@ -1,3 +1,42 @@
 <component name="ProjectDictionaryState">
-  <dictionary name="codycarlton" />
+  <dictionary name="codycarlton">
+    <words>
+      <w>accnt</w>
+      <w>alertdialog</w>
+      <w>appinvite</w>
+      <w>appspot</w>
+      <w>cardto</w>
+      <w>chrono</w>
+      <w>clockedin</w>
+      <w>clockedinzoned</w>
+      <w>clockedoutzoned</w>
+      <w>clocki</w>
+      <w>clockin</w>
+      <w>clockintime</w>
+      <w>clockio</w>
+      <w>clockout</w>
+      <w>createaccount</w>
+      <w>dcade</w>
+      <w>didn</w>
+      <w>googleusercontent</w>
+      <w>jobcomplete</w>
+      <w>jobname</w>
+      <w>jobtitle</w>
+      <w>lgoab</w>
+      <w>loginfragment</w>
+      <w>mktlja</w>
+      <w>mobilesdk</w>
+      <w>punchcard</w>
+      <w>punchcardfrag</w>
+      <w>rvnjtslct</w>
+      <w>signout</w>
+      <w>signupfragment</w>
+      <w>signuplistener</w>
+      <w>timecard</w>
+      <w>timecarddetailfrag</w>
+      <w>timecards</w>
+      <w>totalhours</w>
+      <w>totaltimemillis</w>
+    </words>
+  </dictionary>
 </component>

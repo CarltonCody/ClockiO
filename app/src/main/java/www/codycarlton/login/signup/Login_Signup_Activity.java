@@ -26,11 +26,13 @@ import www.codycarlton.com.clockio.R;
 public class Login_Signup_Activity extends AppCompatActivity
         implements LoginFragment.LoginListener, SignupFragment.Signuplistener {
 
-    FragmentManager fragmentManager;
-    LoginFragment loginFragment;
-    SignupFragment signupFragment;
+    private FragmentManager fragmentManager;
 
     private FirebaseAuth mAuth;
+
+    //Tags for later use in referencing fragments
+    private static final String LOGINFRAGMENT_TAG = "LoginFragment_TAG";
+    private static final String SIGNUPFRAGMENT_TAG = "SignupFragment_TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +43,14 @@ public class Login_Signup_Activity extends AppCompatActivity
 
         setContentView(R.layout.activity_login_signup_activity);
 
-        loginFragment = new LoginFragment();
+        LoginFragment loginFragment = new LoginFragment();
         fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .add(R.id.login_signup_container, loginFragment, "Test").commit();
+        fragmentManager.beginTransaction()
+                .add(R.id.login_signup_container, loginFragment, LOGINFRAGMENT_TAG).commit();
 
     }
 
+    //Checking if user is signed in.If true then nav to dashboard.
     private void checkAuth(){
         FirebaseUser user = mAuth.getCurrentUser();
 
@@ -55,7 +58,7 @@ public class Login_Signup_Activity extends AppCompatActivity
             Intent dashboardIntent = new Intent(this, DashboardActivity.class);
             startActivity(dashboardIntent);
         }
-    }
+    }//checkAuth()
 
     @Override
     protected void onDestroy() {
@@ -63,14 +66,15 @@ public class Login_Signup_Activity extends AppCompatActivity
         this.finish();
     }
 
+    //If user has no account setup then nav to a create account page.
     @Override
     public void goToCreateAccount() {
 
-        signupFragment = new SignupFragment();
+        SignupFragment signupFragment = new SignupFragment();
         signupFragment.setEnterTransition(new Slide(Gravity.BOTTOM));
         signupFragment.setExitTransition(new Slide(Gravity.BOTTOM));
         fragmentManager.beginTransaction()
-                .add(R.id.login_signup_container, signupFragment, "Test2").addToBackStack(null).commit();
+                .add(R.id.login_signup_container, signupFragment, SIGNUPFRAGMENT_TAG).addToBackStack(null).commit();
     }
 
     @Override
@@ -85,8 +89,7 @@ public class Login_Signup_Activity extends AppCompatActivity
                             if (task.isSuccessful()){
                                 gotoDashboard();
                             }else{
-                                //TODO: Determine what to do if login was not successful
-                                showErrorDialog("Oops, something went wrong! Make sure your email and password are correct.");
+                                showErrorDialog(getString(R.string.email_pw_err_msg));
 
                             }
                         }
@@ -109,8 +112,7 @@ public class Login_Signup_Activity extends AppCompatActivity
                                 gotoDashboard();
 
                             }else{
-                                //TODO: Determine what to do if create account was not successful
-                                showErrorDialog("Oops! Something went wrong creating your account. We'll look into.");
+                                showErrorDialog(getString(R.string.create_accnt_err_msg));
                             }
                         }
                     });
@@ -130,13 +132,13 @@ public class Login_Signup_Activity extends AppCompatActivity
 
         }else if (email.isEmpty()){
 
-            Snackbar.make(findViewById(R.id.coordinatorLayout), "Email field is empty.",
+            Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.empty_email_msg,
                     Snackbar.LENGTH_LONG ).show();
             return false;
 
         }else{
 
-            Snackbar.make(findViewById(R.id.coordinatorLayout), "Not a valid email.",
+            Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.invalid_email_msg,
                     Snackbar.LENGTH_LONG ).show();
             return false;
         }
@@ -146,7 +148,7 @@ public class Login_Signup_Activity extends AppCompatActivity
     private boolean validatePassword(String password) {
 
         if (password.length() < 6){
-            Snackbar.make(findViewById(R.id.coordinatorLayout), "Password must have at least 6 characters.",
+            Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.invalid_pw_msg,
                     Snackbar.LENGTH_LONG).show();
         }
 
@@ -154,7 +156,7 @@ public class Login_Signup_Activity extends AppCompatActivity
             return true;
 
         } else if (password.isEmpty()) {
-            Snackbar.make(findViewById(R.id.coordinatorLayout), "Password field is empty.",
+            Snackbar.make(findViewById(R.id.coordinatorLayout), R.string.empty_pw_msg,
                     Snackbar.LENGTH_LONG).show();
             return false;
         }
@@ -165,7 +167,7 @@ public class Login_Signup_Activity extends AppCompatActivity
     private void gotoDashboard(){
         Intent dashBoardIntent = new Intent(this, DashboardActivity.class);
         startActivity(dashBoardIntent);
-    }//gotoDashboard
+    }//gotoDashboard()
 
     private void showErrorDialog(String errorMsg){
 
@@ -175,7 +177,7 @@ public class Login_Signup_Activity extends AppCompatActivity
 
         builder.setMessage(errorMsg);
 
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.ok_text, new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -188,4 +190,4 @@ public class Login_Signup_Activity extends AppCompatActivity
 
     }//errorDialog(String errorMsg)
 
-}//End of line
+}

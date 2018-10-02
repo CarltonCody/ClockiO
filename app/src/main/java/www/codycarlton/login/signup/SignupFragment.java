@@ -4,14 +4,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
 import www.codycarlton.com.clockio.R;
+
+/*
+* Fragment view for allowing user to signup.*/
 
 public class SignupFragment extends Fragment implements View.OnClickListener {
 
@@ -57,8 +60,8 @@ public class SignupFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
 
         if (getView() != null){
-            EditText emailField = getView().findViewById(R.id.email_field);
-            EditText passwordField = getView().findViewById(R.id.password_field);
+            TextInputEditText emailField = getView().findViewById(R.id.email_field);
+            TextInputEditText passwordField = getView().findViewById(R.id.password_field);
 
             switch (view.getId()){
 
