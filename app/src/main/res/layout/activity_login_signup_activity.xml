@@ -8,7 +8,4 @@
     android:fitsSystemWindows="true"
     tools:context="www.codycarlton.login.signup.Login_Signup_Activity">
 
-
-
-
 </FrameLayout>
